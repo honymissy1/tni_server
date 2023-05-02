@@ -3,7 +3,7 @@ const { default: mongoose } = require('mongoose');
 const app = express();
 const cors = require('cors');
 const Admin = require('./models/admin');
-const projects = require('./routes/projects');
+const projects = require('./api/projects');
 
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
