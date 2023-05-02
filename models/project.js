@@ -12,12 +12,12 @@ const projectSchema = new Schema({
     required: true
   },
   starting_date: {
-    type: Date,
+    type: String,
     required: true
   },
 
   ending_date: {
-    type: Date,
+    type: String,
     required: true
   },
   createAt: {
@@ -26,7 +26,7 @@ const projectSchema = new Schema({
   },
   importance: {
     type: String,
-    enum: ['low', 'medium', 'high'],
+    enum: ['important', 'medium', 'high'],
     required: true
   }
 });

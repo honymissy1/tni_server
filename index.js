@@ -3,14 +3,12 @@ const { default: mongoose } = require('mongoose');
 const app = express();
 const cors = require('cors');
 const Admin = require('./models/admin');
+const projects = require('./routes/projects');
 
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
 
-
-
 // Routes 
-const projects = require('./routes/projects');
 
 app.use(cors())
 app.use(express.json())
@@ -49,7 +47,7 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign(
       { id: admin._id},
       process.env.jwtSecret,
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
   
     // Send the JWT token to the React frontend
@@ -57,20 +55,3 @@ app.post('/login', async (req, res) => {
   });
 
   
-  // Protected route
-  app.get('/admin', (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
-  
-    // Verify the JWT token
-    try {
-      const decodedToken = jwt.verify(token, process.env.jwtSecret);
-  
-      if (decodedToken.isAdmin) {
-        res.json({ message: 'You have access to the admin route' });
-      } else {
-        res.status(401).json({ message: 'Unauthorized' });
-      }
-    } catch (error) {
-      res.status(401).json({ message: 'Unauthorized' });
-    }
-  });
